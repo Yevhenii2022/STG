@@ -78,7 +78,7 @@ eval("{\n\n//# sourceURL=webpack://webpack_theme/./src/js/parts/parts.js?\n}");
   \********************************/
 /***/ (() => {
 
-eval("{document.addEventListener(\"DOMContentLoaded\", function () {\r\n    const swiper = new Swiper(\".swiper__swiper\", {\r\n        loop: true,\r\n        effect: \"fade\",\r\n\r\n        // If we need pagination\r\n        pagination: {\r\n            el: \".swiper__pagination\",\r\n            clickable: true,\r\n        },\r\n\r\n        // Navigation arrows\r\n        navigation: {\r\n            nextEl: \".swiper__nav--next\",\r\n            prevEl: \".swiper__nav--prev\",\r\n        },\r\n    });\r\n});\n\n//# sourceURL=webpack://webpack_theme/./src/js/parts/slider.js?\n}");
+eval("{jQuery(document).ready(function ($) {\r\n\tvar $slider = $('.banner-slider .slider');\r\n\tvar $dots = $('.banner-slider .slider-dots li');\r\n\r\n\t$slider.slick({\r\n\t\tinfinite: true,\r\n\t\tarrows: false,\r\n\t\tdots: false,\r\n\t\tautoplay: true,\r\n\t\tautoplaySpeed: 3000,\r\n\t\tfade: true,\r\n\t\tspeed: 800,\r\n\t});\r\n\r\n\t$slider.on('afterChange', function (event, slick, currentSlide) {\r\n\t\t$dots.removeClass('active');\r\n\t\t$dots.eq(currentSlide).addClass('active');\r\n\t});\r\n\r\n\t$dots.on('click', function () {\r\n\t\tvar index = $(this).index();\r\n\t\t$slider.slick('slickGoTo', index);\r\n\t});\r\n});\r\n\n\n//# sourceURL=webpack://webpack_theme/./src/js/parts/slider.js?\n}");
 
 /***/ }),
 

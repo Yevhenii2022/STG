@@ -1,18 +1,24 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const swiper = new Swiper(".swiper__swiper", {
-        loop: true,
-        effect: "fade",
+jQuery(document).ready(function ($) {
+	var $slider = $('.banner-slider .slider');
+	var $dots = $('.banner-slider .slider-dots li');
 
-        // If we need pagination
-        pagination: {
-            el: ".swiper__pagination",
-            clickable: true,
-        },
+	$slider.slick({
+		infinite: true,
+		arrows: false,
+		dots: false,
+		autoplay: true,
+		autoplaySpeed: 3000,
+		fade: true,
+		speed: 800,
+	});
 
-        // Navigation arrows
-        navigation: {
-            nextEl: ".swiper__nav--next",
-            prevEl: ".swiper__nav--prev",
-        },
-    });
+	$slider.on('afterChange', function (event, slick, currentSlide) {
+		$dots.removeClass('active');
+		$dots.eq(currentSlide).addClass('active');
+	});
+
+	$dots.on('click', function () {
+		var index = $(this).index();
+		$slider.slick('slickGoTo', index);
+	});
 });

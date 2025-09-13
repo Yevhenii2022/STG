@@ -1,4 +1,5 @@
 <?php
+
 /**
  * pointer_theme functions and definitions
  *
@@ -124,9 +125,11 @@ function pointer_theme_scripts()
 {
 	wp_enqueue_style('pointer_theme-style', get_stylesheet_uri(), array(), _S_VERSION);
 	wp_style_add_data('pointer_theme-style', 'rtl', 'replace');
-	wp_enqueue_style('pointer_theme-swiper-styles', get_template_directory_uri() . '/src/css/swiper-bundle.min.css', array(), _S_VERSION);
+	wp_enqueue_style('slick-css', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css');
+	// wp_enqueue_style('pointer_theme-swiper-styles', get_template_directory_uri() . '/src/css/swiper-bundle.min.css', array(), _S_VERSION);
 
-	wp_enqueue_script('pointer_theme-swiper-scripts', get_template_directory_uri() . '/src/js/libraries/swiper-bundle.min.js', array('jquery'), true);
+	wp_enqueue_script('slick-js', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', array('jquery'), null, true);
+	// wp_enqueue_script('pointer_theme-swiper-scripts', get_template_directory_uri() . '/src/js/libraries/swiper-bundle.min.js', array('jquery'), true);
 	wp_enqueue_script('pointer_theme-scripts', get_template_directory_uri() . '/assets/scripts.js', array('jquery'), true);
 
 	if (is_singular() && comments_open() && get_option('thread_comments')) {
@@ -185,4 +188,3 @@ require get_template_directory() . '/inc/custom-post-type.php';
  * Register string traslation Polylang (uncomment if you use Polylang)
  */
 // require get_template_directory() . '/inc/translates-registration.php';
-

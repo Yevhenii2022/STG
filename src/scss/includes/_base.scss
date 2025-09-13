@@ -1,0 +1,54 @@
+html {
+	font-size: 0.972vw; // font size 14px
+
+	@include media(tablet) {
+		font-size: 1.27vw;
+	}
+	@include media(mobile) {
+		font-size: 3.733vw; // font size 14px
+	}
+}
+
+body {
+	margin: 0;
+	color: $white;
+	background-color: $bg;
+	font-family: $regular;
+	font-size: 1.143rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1.2;
+
+	&::-webkit-scrollbar {
+		width: 0.5rem;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: $red;
+		border-radius: 0.571rem;
+	}
+
+	&::-webkit-scrollbar-thumb:hover {
+		background-color: #ca2828;
+	}
+}
+
+.container {
+	max-width: 102.857rem;
+	margin: 0 auto;
+	padding: 0 1.714rem;
+
+	@include media(mobile) {
+		width: 100%;
+		padding: 0 1.143rem;
+	}
+}
+
+h1,
+h2,
+h3,
+p,
+span,
+ul {
+	margin: 0;
+}
