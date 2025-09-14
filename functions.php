@@ -189,3 +189,116 @@ require get_template_directory() . '/inc/custom-post-type.php';
  * Register string traslation Polylang (uncomment if you use Polylang)
  */
 // require get_template_directory() . '/inc/translates-registration.php';
+
+add_action('wp_ajax_filter_posts', 'filter_posts');
+add_action('wp_ajax_nopriv_filter_posts', 'filter_posts');
+function filter_posts()
+{
+	$category    = $_POST['catID'] ?? 0;
+	$post_type   = $_POST['postType'] ?: 'post';
+	$search_term = $_POST['search_term'] ?? '';
+	$sort_order  = $_POST['sort_order'] ?? 'DESC';
+
+	$response = '';
+	$paged    = !empty($_POST['paged']) ? intval($_POST['paged']) : 1;
+
+	$args_category = array(
+		'post_type'      => $post_type,
+		'post_status'    => 'publish',
+		'posts_per_page' => 1,
+		'paged'          => $paged,
+		's'              => $search_term,
+		'search_columns' => ['post_title'],
+		'orderby'        => 'date',
+		'order'          => $sort_order,
+	);
+
+	$category_query = new WP_Query($args_category);
+
+	if ($category_query->have_posts()) {
+		$total_pages = $category_query->max_num_pages;
+		$found_posts = $category_query->found_posts;
+
+		if ($post_type == 'post' && !empty($search_term)) {
+			$response .= '<div class="search-result-header" data-pages="' . esc_attr($total_pages) . '">';
+			$response .= '<h3>Results for <span>' . esc_html($search_term) . '</span></h3>';
+			$response .= '<p>' . $found_posts . ' results found</p>';
+			$response .= '</div>';
+		}
+
+		while ($category_query->have_posts()) {
+			$category_query->the_post();
+			ob_start();
+?>
+			<div class="single-post-item">
+				<a href="<?php the_permalink(); ?>">
+					<div>
+						<?php the_post_thumbnail(); ?>
+						<h4><?php the_title(); ?></h4>
+					</div>
+				</a>
+			</div>
+		<?php
+			$response .= ob_get_clean();
+		}
+
+		wp_reset_postdata();
+	} else {
+		$response .= '<p class="no-posts">No posts found</p>';
+	}
+
+	echo $response;
+	wp_die();
+}
+
+add_action('wp_ajax_load_more_posts', 'load_more_posts');
+add_action('wp_ajax_nopriv_load_more_posts', 'load_more_posts');
+function load_more_posts()
+{
+	$paged       = !empty($_POST['paged']) ? intval($_POST['paged']) : 1;
+	$post_type   = $_POST['postType'] ?: 'post';
+	$sort_order  = $_POST['sort_order'] ?? 'DESC';
+	$search_term = $_POST['search_term'] ?? '';
+
+	$response = '';
+
+	$args_category = array(
+		'post_type'      => $post_type,
+		'post_status'    => 'publish',
+		'posts_per_page' => 1,
+		'paged'          => $paged,
+		'orderby'        => 'date',
+		'order'          => $sort_order,
+	);
+
+	if ($search_term) {
+		$args_category['s'] = $search_term;
+		$args_category['search_columns'] = ['post_title'];
+	}
+
+	$category_query = new WP_Query($args_category);
+
+	if ($category_query->have_posts()) {
+		while ($category_query->have_posts()) {
+			$category_query->the_post();
+			ob_start();
+		?>
+			<div class="single-post-item">
+				<a href="<?php the_permalink(); ?>">
+					<div>
+						<?php the_post_thumbnail(); ?>
+						<h4><?php the_title(); ?></h4>
+					</div>
+				</a>
+			</div>
+<?php
+			$response .= ob_get_clean();
+		}
+		wp_reset_postdata();
+	} else {
+		$response .= '<p class="no-posts">No posts found</p>';
+	}
+
+	echo $response;
+	wp_die();
+}

@@ -1,130 +1,6 @@
 jQuery(function ($) {
 	$(document).ready(function () {
-		const filterPosts = $('.load-more-filters-item__link');
-
-		$(filterPosts).each(function () {
-			$(this).on('click', function (e) {
-				e.preventDefault();
-				$('.load-more-filters-item').removeClass('active');
-				$(this).parent('.load-more-filters-item').addClass('active');
-
-				const catID = $(this).data('category-id');
-				// const catName = $(this).data('cat-name');
-				const postType = $(this).data('post-type');
-				const totalPages = $(this).attr('data-totalpages');
-				const currentPage = $(this).attr('data-page');
-
-				$('#showAllPosts').attr('data-totalpages', totalPages);
-				$('#showAllPosts').attr('data-category-id', catID);
-				$('#showAllPosts').attr('data-page', 1);
-				$('#showAllPosts').text('load more');
-
-				$.ajax({
-					type: 'post',
-					url: '/wp-admin/admin-ajax.php',
-					data: {
-						action: 'filter_posts',
-						catID: catID,
-						paged: currentPage,
-						postType: postType,
-					},
-					beforeSend: function (xhr) {
-						$('.load-more-posts__loader').addClass('loading');
-					},
-					success: function (response) {
-						$('.load-more-posts__loader').removeClass('loading');
-						$('.load-more-posts__wrapper-posts').empty().html(response);
-
-						if (currentPage == totalPages && catID !== '0') {
-							$('#showAllPosts').hide();
-						} else {
-							$('#showAllPosts').show();
-						}
-					},
-					error: function (error) {
-						console.error('Failed to fetch posts. Error:', error);
-					},
-				});
-			});
-		});
-
 		/* Load more posts */
-		$('#showAllPosts').on('click', function (e) {
-			e.preventDefault();
-			const button = $(this);
-			const buttonText = $(button).text();
-			const totalPages = $(button).attr('data-totalpages');
-			const currentCategory = $(button).attr('data-category-id');
-			let currentPage = $(button).attr('data-page');
-			const postType = $(this).data('post-type');
-
-			currentPage++;
-			$(button).attr('data-page', currentPage);
-
-			$.ajax({
-				type: 'post',
-				url: '/wp-admin/admin-ajax.php',
-				data: {
-					action: 'load_more_posts',
-					currentCategory: currentCategory,
-					paged: currentPage,
-					postType: postType,
-				},
-				beforeSend: function (xhr) {
-					$(button).text('Loading...');
-				},
-				success: function (response) {
-					$('.load-more-posts__wrapper-posts').append(response);
-					if (currentPage == totalPages) {
-						$(button).hide();
-					} else {
-						$(button).text(buttonText);
-					}
-				},
-				error: function (error) {
-					console.error('Failed to fetch posts. Error:', error);
-				},
-			});
-		});
-
-		// Loading additional posts on the careers page
-		$('#more-careers a').on('click', function (e) {
-			e.preventDefault();
-
-			const button = $(this);
-			const page = button.closest('#more-careers').data('page');
-			const totalPages = button.closest('#more-careers').data('totalpages');
-			const postType = button.closest('#more-careers').data('post-type');
-
-			$.ajax({
-				url: '/wp-admin/admin-ajax.php',
-				type: 'POST',
-				data: {
-					action: 'load_more_careers',
-					page: page,
-					post_type: postType,
-				},
-				beforeSend: function () {
-					button.text('Loading...');
-				},
-				success: function (response) {
-					if (response) {
-						$('#career-list').append(response);
-						button.closest('#more-careers').data('page', page + 1);
-
-						if (page + 1 >= totalPages) {
-							button.parent().remove();
-						} else {
-							button.text('Load more');
-						}
-					} else {
-						button.parent().remove();
-					}
-				},
-			});
-		});
-
-		// Handling the "Load More" functionality for posts
 		$('#load-more-posts a').on('click', function (e) {
 			e.preventDefault();
 			const button = $(this);
@@ -147,7 +23,7 @@ jQuery(function ($) {
 					postType: postType,
 					search_term: searchTerm,
 				},
-				beforeSend: function (xhr) {
+				beforeSend: function () {
 					button.text('Loading...');
 				},
 				success: function (response) {
@@ -162,14 +38,13 @@ jQuery(function ($) {
 						button.text('Load more');
 					}
 				},
-
 				error: function (error) {
 					console.error('Failed to fetch posts. Error:', error);
 				},
 			});
 		});
 
-		// Search functionality by article title
+		/* Search functionality */
 		let searchTimeout;
 		$('#search-input').on('input', function () {
 			const searchTerm = $(this).val().toLowerCase();
@@ -226,7 +101,7 @@ jQuery(function ($) {
 			}, 600);
 		});
 
-		// Sort functionality by post date
+		/* Sort functionality */
 		$('.select__item').on('click', function () {
 			const sortOrder = $(this).data('sort');
 			$('#load-more-posts').attr('data-sort', sortOrder);
@@ -273,7 +148,7 @@ jQuery(function ($) {
 			});
 		});
 
-		//#select
+		/* Custom select dropdown */
 		$('.select').on('click', '.select__head', function () {
 			if ($(this).hasClass('open')) {
 				$(this).removeClass('open');
