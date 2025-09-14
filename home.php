@@ -11,7 +11,7 @@ get_header();
 
   <?php get_template_part('template-parts/firm-section'); ?>
 
-  <!-- <?php get_template_part('template-parts/services-part'); ?> -->
+  <?php get_template_part('template-parts/people-section'); ?>
 
   <!-- <?php get_template_part('template-parts/projects-part'); ?> -->
 

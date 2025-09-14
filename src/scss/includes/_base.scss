@@ -36,7 +36,7 @@ body {
 .container {
 	max-width: 102.857rem;
 	margin: 0 auto;
-	padding: 0 1.714rem;
+	padding: 0 6rem;
 
 	@include media(mobile) {
 		width: 100%;
@@ -51,4 +51,6 @@ p,
 span,
 ul {
 	margin: 0;
+	font-family: $regular;
+	color: $white;
 }

@@ -1,8 +1,7 @@
 .banner-slider {
 	position: relative;
 	width: 100%;
-	height: 52rem;
-	overflow: hidden;
+	height: 40rem;
 
 	.slider,
 	.slide {
@@ -13,8 +12,7 @@
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
-		position: relative;
-		padding-left: 5.714rem;
+		padding-left: 6rem;
 	}
 
 	.slide::after {
@@ -27,11 +25,6 @@
 
 	.slide-content {
 		height: 100%;
-		display: flex;
-		gap: 3rem;
-		justify-content: center;
-		flex-direction: column;
-		position: relative;
 		z-index: 2;
 		max-width: 57.143rem;
 	}
@@ -53,13 +46,11 @@
 	}
 
 	.slider-dots {
-		display: flex;
-		justify-content: center;
 		gap: 2rem;
 		list-style: none;
 		padding: 0;
 		position: absolute;
-		bottom: 5.85rem;
+		bottom: -6.15rem;
 		left: 70%;
 		transform: translateX(-50%);
 		z-index: 3;
