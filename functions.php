@@ -219,7 +219,7 @@ function filter_posts()
 		$total_pages = $category_query->max_num_pages;
 		$found_posts = $category_query->found_posts;
 
-		if ($post_type == 'post' && !empty($search_term)) {
+		if ($post_type == 'people' && !empty($search_term)) {
 			$response .= '<div class="search-result-header" data-pages="' . esc_attr($total_pages) . '">';
 			$response .= '<h3>Results for <span>' . esc_html($search_term) . '</span></h3>';
 			$response .= '<p>' . $found_posts . ' results found</p>';
@@ -238,13 +238,13 @@ function filter_posts()
 					</div>
 				</a>
 			</div>
-		<?php
+<?php
 			$response .= ob_get_clean();
 		}
 
 		wp_reset_postdata();
 	} else {
-		$response .= '<p class="no-posts">No posts found</p>';
+		$response .= '<div class="search-no-posts"><h3>Sorry, there are no items to search for <span>' . esc_html($search_term) . '</span></h3><p>Make sure all words are spelled correctly.</p></div>';
 	}
 
 	echo $response;
@@ -265,7 +265,7 @@ function load_more_posts()
 	$args_category = array(
 		'post_type'      => $post_type,
 		'post_status'    => 'publish',
-		'posts_per_page' => 1,
+		'posts_per_page' => 3,
 		'paged'          => $paged,
 		'orderby'        => 'date',
 		'order'          => $sort_order,
@@ -282,16 +282,9 @@ function load_more_posts()
 		while ($category_query->have_posts()) {
 			$category_query->the_post();
 			ob_start();
-		?>
-			<div class="single-post-item">
-				<a href="<?php the_permalink(); ?>">
-					<div>
-						<?php the_post_thumbnail(); ?>
-						<h4><?php the_title(); ?></h4>
-					</div>
-				</a>
-			</div>
-<?php
+
+			get_template_part('template-parts/people-card');
+
 			$response .= ob_get_clean();
 		}
 		wp_reset_postdata();

@@ -1,5 +1,5 @@
 <?php
-$count_of_posts = 1;
+$count_of_posts = 3;
 $paged = 1;
 $args_category = array(
   'post_type' => 'people',
@@ -15,18 +15,17 @@ $category_query = new WP_Query($args_category);
   <div class="container">
     <div class="people__wrapper">
 
-      <?php
-      $name = get_field('people') ?? '';
-      if ($name) : ?>
-        <h3><?= esc_html($name) ?></h3>
-      <?php endif; ?>
-
       <?php if ($category_query->have_posts()) : ?>
 
         <div class="sort-wrapper">
-          <div class="search-input">
-            <input type="text" id="search-input" placeholder="Search by article...">
-          </div>
+
+          <?php
+          $name = get_field('people') ?? '';
+          if ($name) : ?>
+            <h3><?= esc_html($name) ?></h3>
+          <?php endif; ?>
+
+
           <div class="select">
             <input class="select__input" type="hidden" name="" id="sort-order">
             <div class="select__head">Sort by:</div>
@@ -35,30 +34,31 @@ $category_query = new WP_Query($args_category);
               <li class="select__item" data-sort="ASC">From Oldest to Newest</li>
             </ul>
           </div>
+
+          <div class="search-input">
+            <input type="text" id="search-input" placeholder="Search by article...">
+          </div>
+
+
+
         </div>
 
         <div class="post-query" id="post-list">
-          <?php while ($category_query->have_posts()) : $category_query->the_post(); ?>
-            <div class="single-post-item">
-              <a href="<?php the_permalink(); ?>">
-                <div>
-                  <?php the_post_thumbnail(); ?>
-                  <h4><?php the_title(); ?></h4>
-                </div>
+          <?php while ($category_query->have_posts()) : $category_query->the_post();
 
-              </a>
-            </div>
-          <?php endwhile; ?>
+            get_template_part('template-parts/people-card');
+
+          endwhile; ?>
         </div>
 
         <?php wp_reset_postdata(); ?>
 
         <?php if ($category_query->max_num_pages > 1) : ?>
-          <div id="load-more-posts" class="wp-block-button is-style-outline-custom-button"
+          <div id="load-more-posts"
             data-post-type="people"
             data-page="1"
             data-totalpages="<?php echo esc_attr($category_query->max_num_pages); ?>">
-            <a class="wp-block-button__link wp-element-button">Load more</a>
+            <a class="btn btn-outline-light px-4 py-2">Load more</a>
           </div>
         <?php endif; ?>
 
