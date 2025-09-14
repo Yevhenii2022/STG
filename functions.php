@@ -205,7 +205,7 @@ function filter_posts()
 	$args_category = array(
 		'post_type'      => $post_type,
 		'post_status'    => 'publish',
-		'posts_per_page' => 1,
+		'posts_per_page' => 3,
 		'paged'          => $paged,
 		's'              => $search_term,
 		'search_columns' => ['post_title'],
@@ -229,16 +229,9 @@ function filter_posts()
 		while ($category_query->have_posts()) {
 			$category_query->the_post();
 			ob_start();
-?>
-			<div class="single-post-item">
-				<a href="<?php the_permalink(); ?>">
-					<div>
-						<?php the_post_thumbnail(); ?>
-						<h4><?php the_title(); ?></h4>
-					</div>
-				</a>
-			</div>
-<?php
+
+			get_template_part('template-parts/people-card');
+
 			$response .= ob_get_clean();
 		}
 
