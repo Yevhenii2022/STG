@@ -203,7 +203,7 @@ function filter_posts()
 	$args_category = array(
 		'post_type'      => $post_type,
 		'post_status'    => 'publish',
-		'posts_per_page' => 3,
+		'posts_per_page' => 9,
 		'paged'          => $paged,
 		'orderby'        => 'date',
 		'order'          => $sort_order,
@@ -253,7 +253,6 @@ function filter_posts()
 	wp_die();
 }
 
-
 add_action('wp_ajax_load_more_posts', 'load_more_posts');
 add_action('wp_ajax_nopriv_load_more_posts', 'load_more_posts');
 function load_more_posts()
@@ -267,7 +266,7 @@ function load_more_posts()
 	$args_category = array(
 		'post_type'      => $post_type,
 		'post_status'    => 'publish',
-		'posts_per_page' => 3,
+		'posts_per_page' => 9,
 		'paged'          => $paged,
 		'orderby'        => 'date',
 		'order'          => $sort_order,

@@ -1,5 +1,5 @@
 <?php
-$count_of_posts = 3;
+$count_of_posts = 9;
 $paged = 1;
 $args_category = array(
   'post_type' => 'people',
@@ -16,24 +16,22 @@ $category_query = new WP_Query($args_category);
     <div class="people__wrapper">
 
       <?php if ($category_query->have_posts()) : ?>
-
         <div class="sort-wrapper">
-
           <?php
           $name = get_field('people') ?? '';
           if ($name) : ?>
             <h3><?= esc_html($name) ?></h3>
           <?php endif; ?>
-
-
           <div class="select">
+            <p>Filter by</p>
             <input class="select__input" type="hidden" name="" id="sort-order">
-            <div class="select__head">Select category</div>
+            <div class="select__head">Expertise</div>
             <ul class="select__list" style="display: none;">
+              <li class="select__item" data-cat="0">All Expertise</li>
               <?php
               $terms = get_terms([
                 'taxonomy' => 'people-type',
-                'hide_empty' => true,
+                'hide_empty' => false,
               ]);
 
               if (!empty($terms) && !is_wp_error($terms)) :
@@ -48,15 +46,11 @@ $category_query = new WP_Query($args_category);
             </ul>
           </div>
 
-
           <div class="search-input">
-            <input type="text" id="search-input" placeholder="Search by article...">
+            <input type="text" id="search-input" placeholder="Search by name">
+            <p>Search</p>
           </div>
-
-
-
         </div>
-
         <div class="post-query" id="post-list">
           <?php while ($category_query->have_posts()) : $category_query->the_post();
 
