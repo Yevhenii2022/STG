@@ -197,71 +197,8 @@ function filter_posts()
 	$category    = $_POST['catID'] ?? 0;
 	$post_type   = $_POST['postType'] ?: 'post';
 	$search_term = $_POST['search_term'] ?? '';
+	$sort_order  = $_POST['sort_order'] ?? 'DESC';
 	$paged       = !empty($_POST['paged']) ? intval($_POST['paged']) : 1;
-
-	$response = '';
-
-	$args_category = array(
-		'post_type'      => $post_type,
-		'post_status'    => 'publish',
-		'posts_per_page' => 3,
-		'paged'          => $paged,
-		's'              => $search_term,
-		'search_columns' => ['post_title'],
-		'orderby'        => 'date',
-		'order'          => 'DESC',
-	);
-
-	// Якщо вибрана категорія для people
-	if ($post_type == 'people' && $category != 0) {
-		$args_category['tax_query'] = [
-			[
-				'taxonomy' => 'people-type', // твоя таксономія
-				'field'    => 'term_id',
-				'terms'    => intval($category),
-			],
-		];
-	}
-
-	$category_query = new WP_Query($args_category);
-
-	if ($category_query->have_posts()) {
-		$total_pages = $category_query->max_num_pages;
-		$found_posts = $category_query->found_posts;
-
-		if ($post_type == 'people' && !empty($search_term)) {
-			$response .= '<div class="search-result-header" data-pages="' . esc_attr($total_pages) . '">';
-			$response .= '<h3>Results for <span>' . esc_html($search_term) . '</span></h3>';
-			$response .= '<p>' . $found_posts . ' results found</p>';
-			$response .= '</div>';
-		}
-
-		while ($category_query->have_posts()) {
-			$category_query->the_post();
-			ob_start();
-			get_template_part('template-parts/people-card');
-			$response .= ob_get_clean();
-		}
-
-		wp_reset_postdata();
-	} else {
-		$response .= '<div class="search-no-posts"><h3>Sorry, there are no items to search for <span>' . esc_html($search_term) . '</span></h3><p>Make sure all words are spelled correctly.</p></div>';
-	}
-
-	echo $response;
-	wp_die();
-}
-
-add_action('wp_ajax_load_more_posts', 'load_more_posts');
-add_action('wp_ajax_nopriv_load_more_posts', 'load_more_posts');
-function load_more_posts()
-{
-	$paged       = !empty($_POST['paged']) ? intval($_POST['paged']) : 1;
-	$post_type   = $_POST['postType'] ?: 'post';
-	$search_term = $_POST['search_term'] ?? '';
-	$category    = $_POST['catID'] ?? 0;
-
-	$response = '';
 
 	$args_category = array(
 		'post_type'      => $post_type,
@@ -269,7 +206,7 @@ function load_more_posts()
 		'posts_per_page' => 3,
 		'paged'          => $paged,
 		'orderby'        => 'date',
-		'order'          => 'DESC',
+		'order'          => $sort_order,
 	);
 
 	if ($search_term) {
@@ -277,31 +214,98 @@ function load_more_posts()
 		$args_category['search_columns'] = ['post_title'];
 	}
 
-	// Якщо вибрана категорія для people
-	if ($post_type == 'people' && $category != 0) {
+	if (!empty($category) && $category != 0) {
 		$args_category['tax_query'] = [
 			[
-				'taxonomy' => 'people-category', // твоя таксономія
+				'taxonomy' => 'people-type',
 				'field'    => 'term_id',
 				'terms'    => intval($category),
-			],
+			]
 		];
 	}
 
 	$category_query = new WP_Query($args_category);
+	$response_html  = '';
+
+	if ($category_query->have_posts()) {
+		if ($post_type == 'people' && !empty($search_term)) {
+			$response_html .= '<div class="search-result-header" data-pages="' . esc_attr($category_query->max_num_pages) . '">';
+			$response_html .= '<h3>Results for <span>' . esc_html($search_term) . '</span></h3>';
+			$response_html .= '<p>' . $category_query->found_posts . ' results found</p>';
+			$response_html .= '</div>';
+		}
+
+		while ($category_query->have_posts()) {
+			$category_query->the_post();
+			ob_start();
+			get_template_part('template-parts/people-card');
+			$response_html .= ob_get_clean();
+		}
+		wp_reset_postdata();
+	} else {
+		$response_html .= '<div class="search-no-posts"><h3>Sorry, there are no items to search for <span>' . esc_html($search_term) . '</span></h3><p>Make sure all words are spelled correctly.</p></div>';
+	}
+
+	echo json_encode([
+		'html'        => $response_html,
+		'total_pages' => $category_query->max_num_pages,
+	]);
+	wp_die();
+}
+
+
+add_action('wp_ajax_load_more_posts', 'load_more_posts');
+add_action('wp_ajax_nopriv_load_more_posts', 'load_more_posts');
+function load_more_posts()
+{
+	$paged       = !empty($_POST['paged']) ? intval($_POST['paged']) : 1;
+	$post_type   = $_POST['postType'] ?: 'post';
+	$sort_order  = $_POST['sort_order'] ?? 'DESC';
+	$search_term = $_POST['search_term'] ?? '';
+	$category    = $_POST['catID'] ?? 0;
+
+	$args_category = array(
+		'post_type'      => $post_type,
+		'post_status'    => 'publish',
+		'posts_per_page' => 3,
+		'paged'          => $paged,
+		'orderby'        => 'date',
+		'order'          => $sort_order,
+	);
+
+	if ($search_term) {
+		$args_category['s'] = $search_term;
+		$args_category['search_columns'] = ['post_title'];
+	}
+
+	if (!empty($category) && $category != 0) {
+		$args_category['tax_query'] = [
+			[
+				'taxonomy' => 'people-type',
+				'field'    => 'term_id',
+				'terms'    => intval($category),
+			]
+		];
+	}
+
+	$category_query = new WP_Query($args_category);
+	$response_html  = '';
 
 	if ($category_query->have_posts()) {
 		while ($category_query->have_posts()) {
 			$category_query->the_post();
 			ob_start();
 			get_template_part('template-parts/people-card');
-			$response .= ob_get_clean();
+			$response_html .= ob_get_clean();
 		}
 		wp_reset_postdata();
 	} else {
-		$response .= '<p class="no-posts">No posts found</p>';
+		$response_html .= '<p class="no-posts">No posts found</p>';
 	}
 
-	echo $response;
+	echo json_encode([
+		'html'        => $response_html,
+		'total_pages' => $category_query->max_num_pages,
+	]);
 	wp_die();
 }

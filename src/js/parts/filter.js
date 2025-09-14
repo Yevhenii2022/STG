@@ -5,12 +5,13 @@ jQuery(function ($) {
 			e.preventDefault();
 			const button = $(this);
 			const wrapper = $('#load-more-posts');
-			const totalPages = wrapper.data('totalpages');
+			const totalPages = parseInt(wrapper.data('totalpages'));
 			const postType = wrapper.data('post-type');
-			const catID = wrapper.data('cat') || 0;
-			let currentPage = parseInt(wrapper.attr('data-page'));
-			const searchTerm = $('#search-input').val().toLowerCase();
+			const catID = wrapper.attr('data-cat') || 0;
+			const sortOrder = wrapper.attr('data-sort') || 'DESC';
+			const searchTerm = $('#search-input').val();
 
+			let currentPage = parseInt(wrapper.attr('data-page'));
 			currentPage++;
 			wrapper.attr('data-page', currentPage);
 
@@ -20,6 +21,7 @@ jQuery(function ($) {
 				data: {
 					action: 'load_more_posts',
 					paged: currentPage,
+					sort_order: sortOrder,
 					postType: postType,
 					search_term: searchTerm,
 					catID: catID,
@@ -28,15 +30,15 @@ jQuery(function ($) {
 					button.text('Loading...');
 				},
 				success: function (response) {
-					$('#post-list').append(response);
+					let data = JSON.parse(response);
+					$('#post-list').append(data.html);
 
-					if (
-						currentPage >= totalPages ||
-						$('.search-result-header').data('pages') == currentPage
-					) {
+					wrapper.attr('data-totalpages', data.total_pages);
+
+					if (currentPage >= data.total_pages) {
 						button.hide();
 					} else {
-						button.text('Load more');
+						button.text('Load more').show();
 					}
 				},
 				error: function (error) {
@@ -48,12 +50,14 @@ jQuery(function ($) {
 		/* Search functionality */
 		let searchTimeout;
 		$('#search-input').on('input', function () {
-			const searchTerm = $(this).val().toLowerCase();
-			const postType = $('#load-more-posts').data('post-type');
-			const catID = $('#load-more-posts').data('cat') || 0;
+			const searchTerm = $(this).val();
+			const wrapper = $('#load-more-posts');
+			const postType = wrapper.data('post-type');
+			const catID = wrapper.attr('data-cat') || 0;
+			const sortOrder = wrapper.attr('data-sort') || 'DESC';
 			const button = $('#load-more-posts a');
 			button.text('Load more');
-			$('#load-more-posts').attr('data-page', 1);
+			wrapper.attr('data-page', 1);
 
 			clearTimeout(searchTimeout);
 
@@ -65,24 +69,19 @@ jQuery(function ($) {
 						action: 'filter_posts',
 						search_term: searchTerm,
 						postType: postType,
-						catID: catID,
+						sort_order: sortOrder,
 						paged: 1,
-					},
-					beforeSend: function () {
-						$('.load-more-posts__loader').addClass('loading');
+						catID: catID,
 					},
 					success: function (response) {
-						$('.load-more-posts__loader').removeClass('loading');
-						$('#post-list').empty().html(response);
-						const noPosts = $('.search-no-posts').length;
+						let data = JSON.parse(response);
+						$('#post-list').html(data.html);
+						wrapper.attr('data-totalpages', data.total_pages);
 
-						if (
-							$('.search-result-header').data('pages') <= $('#load-more-posts').data('page') ||
-							noPosts == 1
-						) {
+						if (data.total_pages <= 1) {
 							button.hide();
 						} else {
-							button.show();
+							button.show().text('Load more');
 						}
 					},
 					error: function (error) {
@@ -95,36 +94,36 @@ jQuery(function ($) {
 		/* Category filter */
 		$('.select__item').on('click', function () {
 			const catID = $(this).data('cat');
-			$('#load-more-posts').attr('data-cat', catID);
-			$('#load-more-posts').attr('data-page', 1);
-
-			const button = $('#load-more-posts a');
-			button.text('Load more');
-			const postType = $('#load-more-posts').data('post-type');
+			const wrapper = $('#load-more-posts');
+			const postType = wrapper.data('post-type');
+			const sortOrder = wrapper.attr('data-sort') || 'DESC';
 			const searchTerm = $('#search-input').val();
+			const button = $('#load-more-posts a');
+
+			wrapper.attr('data-cat', catID);
+			wrapper.attr('data-page', 1);
+			button.text('Load more');
 
 			$.ajax({
 				type: 'post',
 				url: '/wp-admin/admin-ajax.php',
 				data: {
 					action: 'filter_posts',
+					sort_order: sortOrder,
 					postType: postType,
 					search_term: searchTerm,
-					catID: catID,
 					paged: 1,
-				},
-				beforeSend: function () {
-					$('.load-more-posts__loader').addClass('loading');
+					catID: catID,
 				},
 				success: function (response) {
-					$('.load-more-posts__loader').removeClass('loading');
-					$('#post-list').empty().html(response);
-					const noPosts = $('.search-no-posts').length;
+					let data = JSON.parse(response);
+					$('#post-list').html(data.html);
+					wrapper.attr('data-totalpages', data.total_pages);
 
-					if (noPosts == 1) {
+					if (data.total_pages <= 1) {
 						button.hide();
 					} else {
-						button.show();
+						button.show().text('Load more');
 					}
 				},
 				error: function (error) {
