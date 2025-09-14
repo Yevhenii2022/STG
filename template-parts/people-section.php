@@ -28,12 +28,26 @@ $category_query = new WP_Query($args_category);
 
           <div class="select">
             <input class="select__input" type="hidden" name="" id="sort-order">
-            <div class="select__head">Sort by:</div>
+            <div class="select__head">Select category</div>
             <ul class="select__list" style="display: none;">
-              <li class="select__item" data-sort="DESC">From Newest to Oldest</li>
-              <li class="select__item" data-sort="ASC">From Oldest to Newest</li>
+              <?php
+              $terms = get_terms([
+                'taxonomy' => 'people-type',
+                'hide_empty' => true,
+              ]);
+
+              if (!empty($terms) && !is_wp_error($terms)) :
+                foreach ($terms as $term) : ?>
+                  <li class="select__item" data-cat="<?php echo esc_attr($term->term_id); ?>">
+                    <?php echo esc_html($term->name); ?>
+                  </li>
+                <?php endforeach;
+              else : ?>
+                <li class="select__item" data-cat="0">No categories</li>
+              <?php endif; ?>
             </ul>
           </div>
+
 
           <div class="search-input">
             <input type="text" id="search-input" placeholder="Search by article...">

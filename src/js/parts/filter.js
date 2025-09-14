@@ -4,14 +4,15 @@ jQuery(function ($) {
 		$('#load-more-posts a').on('click', function (e) {
 			e.preventDefault();
 			const button = $(this);
-			const totalPages = button.closest('#load-more-posts').data('totalpages');
-			const postType = button.closest('#load-more-posts').data('post-type');
-			let currentPage = $('#load-more-posts').attr('data-page');
-			const sortOrder = $('#load-more-posts').attr('data-sort');
+			const wrapper = $('#load-more-posts');
+			const totalPages = wrapper.data('totalpages');
+			const postType = wrapper.data('post-type');
+			const catID = wrapper.data('cat') || 0;
+			let currentPage = parseInt(wrapper.attr('data-page'));
 			const searchTerm = $('#search-input').val().toLowerCase();
 
 			currentPage++;
-			$('#load-more-posts').attr('data-page', currentPage);
+			wrapper.attr('data-page', currentPage);
 
 			$.ajax({
 				type: 'post',
@@ -19,9 +20,9 @@ jQuery(function ($) {
 				data: {
 					action: 'load_more_posts',
 					paged: currentPage,
-					sort_order: sortOrder,
 					postType: postType,
 					search_term: searchTerm,
+					catID: catID,
 				},
 				beforeSend: function () {
 					button.text('Loading...');
@@ -49,19 +50,9 @@ jQuery(function ($) {
 		$('#search-input').on('input', function () {
 			const searchTerm = $(this).val().toLowerCase();
 			const postType = $('#load-more-posts').data('post-type');
-			const sortOrder = $('#sort-order').val();
-			let sortOrder2;
+			const catID = $('#load-more-posts').data('cat') || 0;
 			const button = $('#load-more-posts a');
 			button.text('Load more');
-
-			if (sortOrder === 'From Newest to Oldest') {
-				sortOrder2 = 'DESC';
-			} else if (sortOrder === 'From Oldest to Newest') {
-				sortOrder2 = 'ASC';
-			} else {
-				sortOrder2 = '';
-			}
-
 			$('#load-more-posts').attr('data-page', 1);
 
 			clearTimeout(searchTimeout);
@@ -74,7 +65,7 @@ jQuery(function ($) {
 						action: 'filter_posts',
 						search_term: searchTerm,
 						postType: postType,
-						sort_order: sortOrder2,
+						catID: catID,
 						paged: 1,
 					},
 					beforeSend: function () {
@@ -101,16 +92,14 @@ jQuery(function ($) {
 			}, 600);
 		});
 
-		/* Sort functionality */
+		/* Category filter */
 		$('.select__item').on('click', function () {
-			const sortOrder = $(this).data('sort');
-			$('#load-more-posts').attr('data-sort', sortOrder);
+			const catID = $(this).data('cat');
+			$('#load-more-posts').attr('data-cat', catID);
 			$('#load-more-posts').attr('data-page', 1);
 
 			const button = $('#load-more-posts a');
-			const totalPages = button.closest('#load-more-posts').data('totalpages');
 			button.text('Load more');
-			let currentPage = button.closest('#load-more-posts').data('page');
 			const postType = $('#load-more-posts').data('post-type');
 			const searchTerm = $('#search-input').val();
 
@@ -119,9 +108,9 @@ jQuery(function ($) {
 				url: '/wp-admin/admin-ajax.php',
 				data: {
 					action: 'filter_posts',
-					sort_order: sortOrder,
 					postType: postType,
 					search_term: searchTerm,
+					catID: catID,
 					paged: 1,
 				},
 				beforeSend: function () {
@@ -132,11 +121,7 @@ jQuery(function ($) {
 					$('#post-list').empty().html(response);
 					const noPosts = $('.search-no-posts').length;
 
-					if (
-						currentPage >= totalPages ||
-						$('.search-result-header').data('pages') <= 1 ||
-						noPosts == 1
-					) {
+					if (noPosts == 1) {
 						button.hide();
 					} else {
 						button.show();

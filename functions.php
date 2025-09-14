@@ -197,10 +197,9 @@ function filter_posts()
 	$category    = $_POST['catID'] ?? 0;
 	$post_type   = $_POST['postType'] ?: 'post';
 	$search_term = $_POST['search_term'] ?? '';
-	$sort_order  = $_POST['sort_order'] ?? 'DESC';
+	$paged       = !empty($_POST['paged']) ? intval($_POST['paged']) : 1;
 
 	$response = '';
-	$paged    = !empty($_POST['paged']) ? intval($_POST['paged']) : 1;
 
 	$args_category = array(
 		'post_type'      => $post_type,
@@ -210,8 +209,19 @@ function filter_posts()
 		's'              => $search_term,
 		'search_columns' => ['post_title'],
 		'orderby'        => 'date',
-		'order'          => $sort_order,
+		'order'          => 'DESC',
 	);
+
+	// Якщо вибрана категорія для people
+	if ($post_type == 'people' && $category != 0) {
+		$args_category['tax_query'] = [
+			[
+				'taxonomy' => 'people-type', // твоя таксономія
+				'field'    => 'term_id',
+				'terms'    => intval($category),
+			],
+		];
+	}
 
 	$category_query = new WP_Query($args_category);
 
@@ -229,9 +239,7 @@ function filter_posts()
 		while ($category_query->have_posts()) {
 			$category_query->the_post();
 			ob_start();
-
 			get_template_part('template-parts/people-card');
-
 			$response .= ob_get_clean();
 		}
 
@@ -250,8 +258,8 @@ function load_more_posts()
 {
 	$paged       = !empty($_POST['paged']) ? intval($_POST['paged']) : 1;
 	$post_type   = $_POST['postType'] ?: 'post';
-	$sort_order  = $_POST['sort_order'] ?? 'DESC';
 	$search_term = $_POST['search_term'] ?? '';
+	$category    = $_POST['catID'] ?? 0;
 
 	$response = '';
 
@@ -261,12 +269,23 @@ function load_more_posts()
 		'posts_per_page' => 3,
 		'paged'          => $paged,
 		'orderby'        => 'date',
-		'order'          => $sort_order,
+		'order'          => 'DESC',
 	);
 
 	if ($search_term) {
 		$args_category['s'] = $search_term;
 		$args_category['search_columns'] = ['post_title'];
+	}
+
+	// Якщо вибрана категорія для people
+	if ($post_type == 'people' && $category != 0) {
+		$args_category['tax_query'] = [
+			[
+				'taxonomy' => 'people-category', // твоя таксономія
+				'field'    => 'term_id',
+				'terms'    => intval($category),
+			],
+		];
 	}
 
 	$category_query = new WP_Query($args_category);
@@ -275,9 +294,7 @@ function load_more_posts()
 		while ($category_query->have_posts()) {
 			$category_query->the_post();
 			ob_start();
-
 			get_template_part('template-parts/people-card');
-
 			$response .= ob_get_clean();
 		}
 		wp_reset_postdata();
