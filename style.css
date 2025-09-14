@@ -77,12 +77,10 @@ ul {
   height: 52rem;
   overflow: hidden;
 }
-
 .banner-slider .slider,
 .banner-slider .slide {
   height: 40rem;
 }
-
 .banner-slider .slide {
   background-size: cover;
   background-position: center;
@@ -90,7 +88,6 @@ ul {
   position: relative;
   padding-left: 5.714rem;
 }
-
 .banner-slider .slide::after {
   content: "";
   position: absolute;
@@ -98,7 +95,6 @@ ul {
   background: rgba(0, 0, 0, 0.3);
   z-index: 1;
 }
-
 .banner-slider .slide-content {
   height: 100%;
   display: flex;
@@ -109,14 +105,12 @@ ul {
   z-index: 2;
   max-width: 57.143rem;
 }
-
 .banner-slider h1 {
   font-size: 5.143rem;
   font-weight: 400;
   line-height: 1;
   letter-spacing: -0.018rem;
 }
-
 .banner-slider p {
   margin-top: 1.429rem;
   max-width: 35.714rem;
@@ -125,7 +119,6 @@ ul {
   font-size: 2.286rem;
   line-height: 2.857rem;
 }
-
 .banner-slider .slider-dots {
   display: flex;
   justify-content: center;
@@ -138,7 +131,6 @@ ul {
   transform: translateX(-50%);
   z-index: 3;
 }
-
 .banner-slider .slider-dots li {
   width: 16rem;
   display: flex;
@@ -154,7 +146,6 @@ ul {
   line-height: 1.714rem;
   letter-spacing: 0.018rem;
 }
-
 .banner-slider .slider-dots li.active {
   border-top: 0.857rem solid #fe4670;
 }

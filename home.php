@@ -9,7 +9,7 @@ get_header();
 <main>
   <?php get_template_part('template-parts/hero-slider'); ?>
 
-  <!-- <?php get_template_part('template-parts/about'); ?> -->
+  <?php get_template_part('template-parts/firm-section'); ?>
 
   <!-- <?php get_template_part('template-parts/services-part'); ?> -->
 
