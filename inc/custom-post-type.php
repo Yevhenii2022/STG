@@ -2,7 +2,6 @@
 
 function people_custom_post()
 {
-  // Реєстрація кастомної таксономії
   register_taxonomy('people-type', ['people'], [
     'labels' => [
       'name' => 'Категорії',
@@ -30,7 +29,6 @@ function people_custom_post()
     'show_in_rest' => true,
   ]);
 
-  // Labels для кастомного пост-тайпу
   $labels = array(
     'name' => esc_html__('Люди', 'stg'),
     'singular_name' => esc_html__('Людина', 'stg'),
@@ -46,14 +44,13 @@ function people_custom_post()
     'set_featured_image' => esc_html__('Встановити фото', 'stg')
   );
 
-  // Аргументи для кастомного пост-тайпу
   $args = array(
     'labels' => $labels,
     'description' => 'Люди',
     'public' => true,
     'menu_position' => 20,
     'show_in_rest' => true,
-    'supports' => array('title', 'thumbnail'),
+    'supports' => array('title', 'thumbnail', 'excerpt'),
     'has_archive' => false,
     'show_in_admin_bar' => true,
     'show_in_nav_menus' => true,

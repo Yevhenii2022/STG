@@ -1,17 +1,27 @@
 <?php
-$name = get_field('people') ?? '';
+$count_of_posts = 1;
+$paged = 1;
+$args_category = array(
+  'post_type' => 'people',
+  'post_status' => 'publish',
+  'ignore_sticky_posts' => 1,
+  'posts_per_page' => $count_of_posts,
+  'paged' => $paged,
+);
+$category_query = new WP_Query($args_category);
 ?>
 
 <section id="people" class="people">
   <div class="container">
     <div class="people__wrapper">
-      <?php if ($name) : ?>
-        <h3><?= $name ?></h3>
+
+      <?php
+      $name = get_field('people') ?? '';
+      if ($name) : ?>
+        <h3><?= esc_html($name) ?></h3>
       <?php endif; ?>
 
-
-
-      <?php if ($post_type == 'post'): ?>
+      <?php if ($category_query->have_posts()) : ?>
 
         <div class="sort-wrapper">
           <div class="search-input">
@@ -27,38 +37,34 @@ $name = get_field('people') ?? '';
           </div>
         </div>
 
-        <?php if ($category_query->have_posts()) : ?>
-          <div class="post-query" id="post-list">
-            <?php while ($category_query->have_posts()) : $category_query->the_post(); ?>
-              <div class="single-post-item">
-                <a href="<?php echo get_permalink(); ?>">
-                  <div>
-                    <?php the_post_thumbnail(); ?>
-                    <h4><?php echo get_the_title(); ?></h4>
-                  </div>
-                  <div class="post-wrapper">
-                    <p class="post-date"><?php echo get_the_date('j F Y'); ?></p>
-                    <p class="post-text"><?php echo get_the_excerpt(); ?></p>
-                    <span>Read now</span>
-                  </div>
-                </a>
-              </div>
-            <?php endwhile; ?>
-          </div>
+        <div class="post-query" id="post-list">
+          <?php while ($category_query->have_posts()) : $category_query->the_post(); ?>
+            <div class="single-post-item">
+              <a href="<?php the_permalink(); ?>">
+                <div>
+                  <?php the_post_thumbnail(); ?>
+                  <h4><?php the_title(); ?></h4>
+                </div>
 
-          <?php wp_reset_postdata(); ?>
+              </a>
+            </div>
+          <?php endwhile; ?>
+        </div>
 
-        <?php else: ?>
-          <p class="post-title">There are currently no posts</p>
-        <?php endif; ?>
+        <?php wp_reset_postdata(); ?>
 
         <?php if ($category_query->max_num_pages > 1) : ?>
-          <div id="load-more-posts" class="wp-block-button is-style-outline-custom-button" data-post-type="<?php echo $post_type ?>" data-page="1" data-totalpages="<?php echo $category_query->max_num_pages; ?>">
+          <div id="load-more-posts" class="wp-block-button is-style-outline-custom-button"
+            data-post-type="people"
+            data-page="1"
+            data-totalpages="<?php echo esc_attr($category_query->max_num_pages); ?>">
             <a class="wp-block-button__link wp-element-button">Load more</a>
           </div>
         <?php endif; ?>
-      <?php endif; ?>
 
+      <?php else : ?>
+        <p class="post-title">There are currently no posts</p>
+      <?php endif; ?>
 
     </div>
   </div>
