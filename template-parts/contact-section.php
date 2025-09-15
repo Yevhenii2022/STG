@@ -1,5 +1,6 @@
 <?php
 $title = get_field('contact') ?? '';
+$map = get_field('contact_map') ?? '';
 ?>
 
 <section id="contact" class="contact">
@@ -12,5 +13,10 @@ $title = get_field('contact') ?? '';
       <?php echo do_shortcode('[contact-form-7 id="c4ea21f" title="Contact Form"]') ?>
 
     </div>
+  </div>
+  <div class="map">
+    <?php if ($map) : ?>
+      <?= $map ?>
+    <?php endif; ?>
   </div>
 </section>

@@ -364,9 +364,6 @@ ul {
   font-size: 1.286rem;
 }
 
-.contact {
-  padding-bottom: 8.571rem;
-}
 .contact h2 {
   max-width: 28.6rem;
   font-size: 4rem;
@@ -375,19 +372,40 @@ ul {
 .contact .wpcf7 {
   width: 50rem;
 }
-.contact .wpcf7 .form-check {
-  margin: 2.2rem 0 !important;
-  padding-left: 0.5rem;
+.contact .wpcf7 .btn {
+  font-size: 1.286rem;
 }
-.contact .wpcf7 .form-check label {
+.contact .wpcf7 .wpcf7-acceptance .wpcf7-list-item {
+  margin: 1.6rem 0 2.1rem 0;
+}
+.contact .wpcf7 .wpcf7-acceptance .wpcf7-list-item p {
   font-size: 1.429rem;
 }
-.contact .wpcf7 .form-check label a {
+.contact .wpcf7 .wpcf7-acceptance .wpcf7-list-item p a {
   color: #fe4670;
   text-decoration: none;
 }
-.contact .wpcf7 .btn {
-  font-size: 1.286rem;
+.contact .wpcf7 .wpcf7-acceptance .wpcf7-list-item input[type=checkbox] {
+  display: none;
+}
+.contact .wpcf7 .wpcf7-acceptance .wpcf7-list-item input[type=checkbox]:checked + .wpcf7-list-item-label:before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' fill='none'%3E%3Cg clip-path='url(%23a)'%3E%3Cpath stroke='%23FFE60B' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.185' d='M1.325 5.448 4.09 8.212l5.528-5.923'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='a'%3E%3Cpath fill='%23fff' d='M.471.25h10v10h-10z'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 15px 15px;
+  background-position: center;
+}
+.contact .wpcf7 .wpcf7-acceptance .wpcf7-list-item .wpcf7-list-item-label {
+  display: flex;
+  align-items: center;
+  gap: 1.143rem;
+}
+.contact .wpcf7 .wpcf7-acceptance .wpcf7-list-item .wpcf7-list-item-label:before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  display: block;
+  border-radius: 0.286rem;
+  background-color: #0a2240;
 }
 .contact .row input {
   height: 4rem;
@@ -411,4 +429,11 @@ ul {
 .contact .row input::placeholder,
 .contact textarea::placeholder {
   color: #b6eaff;
+}
+.contact .map {
+  margin-top: 8.571rem;
+}
+.contact .map iframe {
+  width: 100%;
+  height: 36.857rem;
 }
