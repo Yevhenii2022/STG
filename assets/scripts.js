@@ -78,7 +78,7 @@ eval("{jQuery(function ($) {\r\n\t$(document).ready(function () {\r\n\t\t/* Load
   \*******************************/
 /***/ (() => {
 
-eval("{\n\n//# sourceURL=webpack://webpack_theme/./src/js/parts/parts.js?\n}");
+eval("{jQuery(function ($) {\r\n\t$('.header__nav-list a').on('click', function (e) {\r\n\t\t$('.header__nav-list a').removeClass('active');\r\n\t\t$(this).addClass('active');\r\n\t});\r\n});\r\n\n\n//# sourceURL=webpack://webpack_theme/./src/js/parts/parts.js?\n}");
 
 /***/ }),
 

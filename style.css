@@ -87,6 +87,34 @@ ul {
   color: #fff;
 }
 
+.header {
+  width: 100%;
+  position: absolute;
+  top: 10px;
+  z-index: 1;
+}
+.header__wrapper h2 {
+  font-weight: 400;
+  font-size: 2.571rem;
+}
+.header__nav-list {
+  display: flex;
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+}
+.header__nav-list li a {
+  padding-bottom: 0.5rem;
+  font-size: 1.143rem;
+  line-height: 1.143rem;
+  font-family: "Outfit-Medium", "sans-serif";
+  text-decoration: none;
+  color: #edfaff;
+}
+.header__nav-list li a.active {
+  border-bottom: 4px solid #fe4670;
+}
+
 .footer {
   padding: 5.143rem 0 1.714rem 0;
   background-color: #0a2240;

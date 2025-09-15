@@ -1,0 +1,31 @@
+.header {
+	width: 100%;
+	position: absolute;
+	top: 10px;
+	z-index: 1;
+	&__wrapper {
+		h2 {
+			font-weight: 400;
+			font-size: 2.571rem;
+		}
+	}
+	&__nav-list {
+		display: flex;
+		gap: 1rem;
+		padding: 0;
+		list-style: none;
+		li {
+			a {
+				padding-bottom: 0.5rem;
+				font-size: 1.143rem;
+				line-height: 1.143rem;
+				font-family: $medium;
+				text-decoration: none;
+				color: $white-3;
+				&.active {
+					border-bottom: 4px solid $red;
+				}
+			}
+		}
+	}
+}
