@@ -9,10 +9,10 @@
 	}
 
 	.slide {
-		background-size: cover;
-		background-position: center;
-		background-repeat: no-repeat;
 		padding-left: 6rem;
+		@include media(mobile) {
+			padding: 0 1.2rem;
+		}
 	}
 
 	.slide::after {
@@ -34,6 +34,9 @@
 		font-weight: 400;
 		line-height: 1;
 		letter-spacing: -0.018rem;
+		@include media(mobile) {
+			font-size: 4rem;
+		}
 	}
 
 	p {
@@ -54,6 +57,9 @@
 		left: 70%;
 		transform: translateX(-50%);
 		z-index: 3;
+		@include media(tablet) {
+			left: 50%;
+		}
 	}
 
 	.slider-dots li {

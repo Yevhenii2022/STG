@@ -13,6 +13,9 @@
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 1.143rem;
+	@include media(mobile) {
+		grid-template-columns: repeat(2, 1fr);
+	}
 
 	.single-post-item {
 		position: relative;
@@ -46,6 +49,9 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	@include media(mobile) {
+		flex-direction: column;
+	}
 }
 
 .select {
@@ -61,7 +67,7 @@
 	&__head {
 		width: 100%;
 		max-width: 100%;
-		padding: 20px;
+		padding: 1.429rem;
 		cursor: pointer;
 
 		&::after {

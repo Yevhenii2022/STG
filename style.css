@@ -39,7 +39,7 @@ html {
 }
 @media (max-width: 541px) {
   html {
-    font-size: 3.733vw;
+    font-size: 1.8vw;
   }
 }
 
@@ -119,6 +119,12 @@ ul {
   padding: 5.143rem 0 1.714rem 0;
   background-color: #0a2240;
 }
+@media (max-width: 541px) {
+  .footer__wrapper {
+    flex-direction: column;
+    gap: 3rem;
+  }
+}
 .footer__wrapper h2 {
   margin-bottom: 1.714rem;
   font-weight: 400;
@@ -138,6 +144,11 @@ ul {
 .footer__wrapper a {
   color: #fff;
   text-decoration: none;
+}
+@media (max-width: 541px) {
+  .footer__wrapper a {
+    width: 20rem;
+  }
 }
 .footer__nav-list {
   display: flex;
@@ -200,10 +211,12 @@ ul {
   height: 40rem;
 }
 .banner-slider .slide {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   padding-left: 6rem;
+}
+@media (max-width: 541px) {
+  .banner-slider .slide {
+    padding: 0 1.2rem;
+  }
 }
 .banner-slider .slide::after {
   content: "";
@@ -223,6 +236,11 @@ ul {
   line-height: 1;
   letter-spacing: -0.018rem;
 }
+@media (max-width: 541px) {
+  .banner-slider h1 {
+    font-size: 4rem;
+  }
+}
 .banner-slider p {
   margin-top: 1.429rem;
   max-width: 35.714rem;
@@ -240,6 +258,11 @@ ul {
   left: 70%;
   transform: translateX(-50%);
   z-index: 3;
+}
+@media (max-width: 1025px) {
+  .banner-slider .slider-dots {
+    left: 50%;
+  }
 }
 .banner-slider .slider-dots li {
   width: 16rem;
@@ -302,6 +325,11 @@ ul {
   grid-template-columns: repeat(3, 1fr);
   gap: 1.143rem;
 }
+@media (max-width: 541px) {
+  .post-query {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 .post-query .single-post-item {
   position: relative;
 }
@@ -334,6 +362,11 @@ ul {
   justify-content: space-between;
   align-items: center;
 }
+@media (max-width: 541px) {
+  .sort-wrapper {
+    flex-direction: column;
+  }
+}
 
 .select {
   display: flex;
@@ -349,7 +382,7 @@ ul {
 .select__head {
   width: 100%;
   max-width: 100%;
-  padding: 20px;
+  padding: 1.429rem;
   cursor: pointer;
 }
 .select__head::after {
@@ -467,6 +500,15 @@ ul {
   font-size: 1.286rem;
 }
 
+@media (max-width: 541px) {
+  .contact__wrapper {
+    flex-direction: column;
+    gap: 3rem;
+  }
+  .contact .row {
+    gap: 1.1rem;
+  }
+}
 .contact h2 {
   max-width: 28.6rem;
   font-size: 4rem;
@@ -474,6 +516,11 @@ ul {
 }
 .contact .wpcf7 {
   width: 50rem;
+}
+@media (max-width: 541px) {
+  .contact .wpcf7 {
+    width: 100%;
+  }
 }
 .contact .wpcf7 .btn {
   font-size: 1.286rem;

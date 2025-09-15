@@ -1,4 +1,14 @@
 .contact {
+	@include media(mobile) {
+		&__wrapper {
+			flex-direction: column;
+			gap: 3rem;
+		}
+		.row {
+			gap: 1.1rem;
+		}
+	}
+
 	h2 {
 		max-width: 28.6rem;
 		font-size: 4rem;
@@ -6,6 +16,9 @@
 	}
 	.wpcf7 {
 		width: 50rem;
+		@include media(mobile) {
+			width: 100%;
+		}
 
 		.btn {
 			font-size: 1.286rem;

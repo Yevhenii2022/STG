@@ -14,16 +14,6 @@ get_header();
   <?php get_template_part('template-parts/people-section'); ?>
 
   <?php get_template_part('template-parts/contact-section'); ?>
-
-  <!-- <?php get_template_part('template-parts/contact'); ?> -->
-
-  <!-- <?php get_template_part('template-parts/contact-us'); ?> -->
-
-
-
-
-
-
 </main>
 
 <?php get_footer(); ?>

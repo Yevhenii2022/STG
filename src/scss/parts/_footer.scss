@@ -2,6 +2,10 @@
 	padding: 5.143rem 0 1.714rem 0;
 	background-color: $blue-zodiac;
 	&__wrapper {
+		@include media(mobile) {
+			flex-direction: column;
+			gap: 3rem;
+		}
 		h2 {
 			margin-bottom: 1.714rem;
 			font-weight: 400;
@@ -21,6 +25,9 @@
 		a {
 			color: $white;
 			text-decoration: none;
+			@include media(mobile) {
+				width: 20rem;
+			}
 		}
 	}
 	&__nav-list {
