@@ -1,0 +1,79 @@
+.footer {
+	padding: 5.143rem 0 1.714rem 0;
+	background-color: $blue-zodiac;
+	&__wrapper {
+		h2 {
+			margin-bottom: 1.714rem;
+			font-weight: 400;
+			font-size: 2.571rem;
+		}
+		h3 {
+			margin-bottom: 2.286rem;
+			font-size: 0.857rem;
+			line-height: 1.143rem;
+		}
+		p {
+			max-width: 27.5rem;
+			font-size: 1.286rem;
+			line-height: 1.714rem;
+			color: $white-2;
+		}
+		a {
+			color: $white;
+			text-decoration: none;
+		}
+	}
+	&__nav-list {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		padding: 0;
+		list-style: none;
+		li {
+			a {
+				font-size: 1rem;
+				line-height: 1.143rem;
+				font-family: $medium;
+				text-decoration: none;
+				color: $white;
+			}
+		}
+	}
+	&__address {
+		max-width: 18.5rem;
+		gap: 1.714rem;
+		p {
+			font-size: 1.143rem;
+			line-height: 1.429rem;
+		}
+		&--map {
+			display: flex;
+			gap: 0.571rem;
+			align-items: center;
+			font-size: 1.143rem;
+			line-height: 1.714rem;
+			&:after {
+				content: '';
+				width: 16px;
+				height: 16px;
+				background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17' height='16' fill='none'%3E%3Cpath fill='%23fff' d='M14.911 6.5a.75.75 0 1 1-1.5 0V4.312l-3.72 3.72A.751.751 0 1 1 8.63 6.969l3.72-3.719H10.16a.75.75 0 0 1 0-1.5h4a.75.75 0 0 1 .75.75v4ZM12.161 8a.75.75 0 0 0-.75.75v4h-7.5v-7.5h4a.75.75 0 0 0 0-1.5h-4.25A1.25 1.25 0 0 0 2.411 5v8a1.25 1.25 0 0 0 1.25 1.25h8a1.25 1.25 0 0 0 1.25-1.25V8.75a.75.75 0 0 0-.75-.75Z'/%3E%3C/svg%3E");
+				background-repeat: no-repeat;
+			}
+		}
+		&--tel,
+		&--email {
+			font-size: 1.143rem;
+			line-height: 1.429rem;
+		}
+	}
+	&__bottom {
+		margin-top: 7.143rem;
+		padding-top: 1.714rem;
+		border-top: 1px solid #888888;
+		p {
+			width: 100%;
+			text-align: center;
+			color: #d1d1d1;
+		}
+	}
+}
