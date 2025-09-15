@@ -201,6 +201,10 @@ ul {
   color: #d1d1d1;
 }
 
+.modal {
+  background-color: #181818;
+}
+
 .banner-slider {
   position: relative;
   width: 100%;

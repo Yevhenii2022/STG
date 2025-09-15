@@ -101,6 +101,26 @@ $cleanedNumber2 = preg_replace('/\D/', '', $phone_2);
   </div>
 </footer>
 
+<!-- Modal Search -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-4">
+      <div class="modal-header border-0">
+        <h4 class="modal-title" id="searchModalLabel">What are you looking for?</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
+          <div class="input-group">
+            <input type="search" class="form-control" placeholder="Search…" value="<?php echo get_search_query(); ?>" name="s" />
+            <button type="submit" class="btn btn-primary">Search</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div>
 <?php wp_footer(); ?>
 </body>
