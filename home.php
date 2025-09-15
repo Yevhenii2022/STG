@@ -13,7 +13,7 @@ get_header();
 
   <?php get_template_part('template-parts/people-section'); ?>
 
-  <!-- <?php get_template_part('template-parts/projects-part'); ?> -->
+  <?php get_template_part('template-parts/contact-section'); ?>
 
   <!-- <?php get_template_part('template-parts/contact'); ?> -->
 

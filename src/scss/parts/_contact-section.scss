@@ -1,0 +1,49 @@
+.contact {
+	padding-bottom: 8.571rem;
+	h2 {
+		max-width: 28.6rem;
+		font-size: 4rem;
+		line-height: 4.571rem;
+	}
+	.wpcf7 {
+		width: 50rem;
+		.form-check {
+			margin: 2.2rem 0 !important;
+			padding-left: 0.5rem;
+			label {
+				font-size: 1.429rem;
+				a {
+					color: $red;
+					text-decoration: none;
+				}
+			}
+		}
+		.btn {
+			font-size: 1.286rem;
+		}
+	}
+	.row {
+		input {
+			height: 4rem;
+		}
+	}
+	.row input,
+	textarea {
+		font-size: 1.429rem;
+		color: $blue-zodiac-2;
+		background: $blue-zodiac;
+		border: none;
+		&:focus {
+			color: $blue-zodiac-2;
+			background: $blue-zodiac;
+		}
+	}
+	textarea {
+		height: 17.857rem;
+		resize: none;
+	}
+	.row input::placeholder,
+	textarea::placeholder {
+		color: $blue-zodiac-2;
+	}
+}

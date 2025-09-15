@@ -320,7 +320,7 @@ ul {
   all: unset;
   width: 28.2rem;
   font-size: 1.429rem;
-  border-radius: 10px;
+  border-radius: 0.571rem;
   background-color: #0a2240 !important;
   border: 1px solid transparent;
   transition: all 0.3s ease-in-out;
@@ -359,4 +359,56 @@ ul {
   margin-top: 7.143rem;
   display: flex;
   justify-content: center;
+}
+#load-more-posts a {
+  font-size: 1.286rem;
+}
+
+.contact {
+  padding-bottom: 8.571rem;
+}
+.contact h2 {
+  max-width: 28.6rem;
+  font-size: 4rem;
+  line-height: 4.571rem;
+}
+.contact .wpcf7 {
+  width: 50rem;
+}
+.contact .wpcf7 .form-check {
+  margin: 2.2rem 0 !important;
+  padding-left: 0.5rem;
+}
+.contact .wpcf7 .form-check label {
+  font-size: 1.429rem;
+}
+.contact .wpcf7 .form-check label a {
+  color: #fe4670;
+  text-decoration: none;
+}
+.contact .wpcf7 .btn {
+  font-size: 1.286rem;
+}
+.contact .row input {
+  height: 4rem;
+}
+.contact .row input,
+.contact textarea {
+  font-size: 1.429rem;
+  color: #b6eaff;
+  background: #0a2240;
+  border: none;
+}
+.contact .row input:focus,
+.contact textarea:focus {
+  color: #b6eaff;
+  background: #0a2240;
+}
+.contact textarea {
+  height: 17.857rem;
+  resize: none;
+}
+.contact .row input::placeholder,
+.contact textarea::placeholder {
+  color: #b6eaff;
 }

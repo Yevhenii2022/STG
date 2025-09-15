@@ -146,7 +146,7 @@
 		all: unset;
 		width: 28.2rem;
 		font-size: 1.429rem;
-		border-radius: 10px;
+		border-radius: 0.571rem;
 		background-color: $blue-zodiac !important;
 		border: 1px solid transparent;
 		transition: $transition;
@@ -187,4 +187,7 @@
 	margin-top: 7.143rem;
 	display: flex;
 	justify-content: center;
+	a {
+		font-size: 1.286rem;
+	}
 }
