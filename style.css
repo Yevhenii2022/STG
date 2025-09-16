@@ -204,6 +204,59 @@ ul {
 .modal {
   background-color: #181818;
 }
+.modal h4 {
+  font-size: 5rem;
+  color: #fff;
+}
+.modal input {
+  color: #fff;
+  background: #0a2240;
+  border-radius: 16px !important;
+  border: none;
+  font-size: 1.8rem;
+}
+.modal input:hover, .modal input:focus-within {
+  color: #fff;
+  background: #0a2240;
+}
+.modal input::placeholder {
+  color: #fff;
+}
+.modal button[type=submit] {
+  background: transparent;
+  border: none;
+}
+.modal button[type=button] {
+  margin: 0;
+  padding: 20px;
+  opacity: 1;
+}
+.modal .modal-dialog {
+  max-width: 60.857rem;
+}
+.modal form {
+  width: 50rem;
+}
+.modal .modal-content {
+  background: transparent;
+  border: none;
+}
+.modal .btn-box {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: #fe4670;
+}
+@media (max-width: 541px) {
+  .modal .btn-box {
+    position: absolute;
+    right: 3.1rem;
+    top: -34rem;
+  }
+}
 
 .banner-slider {
   position: relative;

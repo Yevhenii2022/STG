@@ -87,4 +87,64 @@
 
 .modal {
 	background-color: $bg;
+
+	h4 {
+		font-size: 5rem;
+		color: $white;
+	}
+
+	input {
+		color: $white;
+		background: $blue-zodiac;
+		border-radius: 16px !important;
+		border: none;
+		font-size: 1.8rem;
+		&:hover,
+		&:focus-within {
+			color: $white;
+			background: $blue-zodiac;
+		}
+		&::placeholder {
+			color: $white;
+		}
+	}
+
+	button[type='submit'] {
+		background: transparent;
+		border: none;
+	}
+	button[type='button'] {
+		margin: 0;
+		padding: 20px;
+		opacity: 1;
+	}
+
+	.modal-dialog {
+		max-width: 60.857rem;
+	}
+
+	form {
+		width: 50rem;
+	}
+
+	.modal-content {
+		background: transparent;
+		border: none;
+	}
+
+	.btn-box {
+		width: 60px;
+		height: 60px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 50%;
+		background: $red;
+
+		@include media(mobile) {
+			position: absolute;
+			right: 3.1rem;
+			top: -34rem;
+		}
+	}
 }

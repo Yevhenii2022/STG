@@ -104,18 +104,25 @@ $cleanedNumber2 = preg_replace('/\D/', '', $phone_2);
 <!-- Modal Search -->
 <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content p-4">
+    <div class="modal-content p-2">
       <div class="modal-header border-0">
         <h4 class="modal-title" id="searchModalLabel">What are you looking for?</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body d-flex align-items-center gap-4">
         <form role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
           <div class="input-group">
             <input type="search" class="form-control" placeholder="Search…" value="<?php echo get_search_query(); ?>" name="s" />
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn btn-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 96 96" fill="none">
+                <rect width="96" height="96" fill="#FE4670" rx="45" />
+                <path fill="#fff" d="m63.744 61.185-7.155-7.158a13.88 13.88 0 1 0-2.561 2.561l7.161 7.163a1.812 1.812 0 0 0 2.562-2.561l-.007-.005Zm-28.4-15.596A10.246 10.246 0 1 1 45.59 55.835a10.256 10.256 0 0 1-10.245-10.246Z" />
+              </svg>
+            </button>
           </div>
         </form>
+        <div class="btn-box">
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
       </div>
     </div>
   </div>
