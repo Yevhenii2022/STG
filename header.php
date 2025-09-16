@@ -34,7 +34,9 @@
 						<?php
 						$site_name = get_field('site_name', 'options') ?? '';
 						if ($site_name) : ?>
-							<h2><?= $site_name ?></h2>
+							<a href="<?= esc_url(home_url('/')); ?>" class="text-decoration-none">
+								<h2><?= $site_name ?></h2>
+							</a>
 						<?php endif; ?>
 					</div>
 					<div class="d-flex align-items-center gap-5">

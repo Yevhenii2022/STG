@@ -29,7 +29,9 @@ get_header();
 
 	<h1 class="mb-5 d-flex flex-column">
 		Search results for
-		<span class="fw-bold"><?= esc_html($search_query); ?></span>
+		<span class="fw-bold">
+			<?= esc_html($search_query); ?> (<?= $query->found_posts; ?> <?= _n('result', 'results', $query->found_posts, 'pointer_theme'); ?> found)
+		</span>
 	</h1>
 
 	<?php if ($query->have_posts()) : ?>
